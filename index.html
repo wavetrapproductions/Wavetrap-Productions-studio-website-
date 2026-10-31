@@ -1,5 +1,14 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Wavetrap Productions</title>
+<meta name="theme-color" content="#faf6ef">
+<script>
+(function(){
+  var s=null;
+  try{ s=localStorage.getItem('wt-theme'); }catch(e){}
+  var t=(s==='day'||s==='night')?s:((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'night':'day');
+  document.documentElement.setAttribute('data-theme',t);
+})();
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -26,8 +35,8 @@
     margin:0;
     overflow-x:hidden;
     background:
-      radial-gradient(60% 50% at 15% -10%, rgba(193,101,31,0.07), transparent 60%),
-      radial-gradient(50% 40% at 100% 0%, rgba(193,101,31,0.05), transparent 60%),
+      radial-gradient(60% 50% at 15% -10%, var(--glow-a), transparent 60%),
+      radial-gradient(50% 40% at 100% 0%, var(--glow-b), transparent 60%),
       var(--bg);
     color:var(--ink);
     font-family:"Work Sans", ui-sans-serif, system-ui, sans-serif;
@@ -118,7 +127,7 @@
     text-decoration:none;
     border:1px solid transparent;
   }
-  .btn-primary{ background:var(--accent); color:#fff8f0; }
+  .btn-primary{ background:var(--accent); color:var(--on-accent); }
   .btn-primary:hover{ background:var(--accent-soft); }
   .btn-ghost{ border-color:var(--line); color:var(--ink); }
   .btn-ghost:hover{ border-color:var(--accent); color:var(--accent-soft); }
@@ -288,7 +297,7 @@
     display:inline-flex; align-items:center; gap:8px;
     padding:14px 22px;
     border-radius:999px;
-    background:var(--accent); color:#fff8f0;
+    background:var(--accent); color:var(--on-accent);
     font-size:0.94rem; font-weight:600;
     border:none; cursor:pointer;
     box-shadow: 0 14px 30px -10px var(--shadow);
@@ -307,7 +316,7 @@
   /* ---- booking modal ---- */
   .booking-overlay{
     position:fixed; inset:0; z-index:80;
-    background:rgba(34,27,20,0.55);
+    background:var(--overlay);
     backdrop-filter: blur(2px);
     display:none;
     align-items:flex-start; justify-content:center;
@@ -322,7 +331,7 @@
     border-radius:18px;
     padding: 26px 24px 28px;
     position:relative;
-    box-shadow: 0 40px 80px -30px rgba(34,27,20,0.35);
+    box-shadow: 0 40px 80px -30px var(--modal-shadow);
     margin-block: 20px;
   }
   .booking-close{
@@ -352,7 +361,7 @@
   .qr-card::before{
     content:"";
     position:absolute; inset:-16px;
-    background: radial-gradient(60% 60% at 50% 40%, rgba(193,101,31,0.32), transparent 70%);
+    background: radial-gradient(60% 60% at 50% 40%, var(--qr-glow), transparent 70%);
     filter: blur(10px);
     z-index:0;
   }
@@ -381,7 +390,7 @@
   .booking-submit{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
     padding:13px 20px; border-radius:999px; border:none; cursor:pointer;
-    background:var(--accent); color:#fff8f0; font-size:0.96rem; font-weight:600;
+    background:var(--accent); color:var(--on-accent); font-size:0.96rem; font-weight:600;
     margin-top:4px; text-decoration:none;
   }
   .booking-submit:hover{ background:var(--accent-soft); }
@@ -430,7 +439,97 @@
   footer .social{ display:flex; gap:16px; }
   footer a{ text-decoration:none; color:var(--faint); }
   footer a:hover{ color:var(--accent-soft); }
+
+  /* ---- themes: Daylight (default tokens above) and Purple Night ---- */
+  :root{
+    --on-accent:#fff8f0;
+    --glow-a:rgba(193,101,31,0.07);
+    --glow-b:rgba(193,101,31,0.05);
+    --overlay:rgba(34,27,20,0.55);
+    --modal-shadow:rgba(34,27,20,0.35);
+    --qr-glow:rgba(193,101,31,0.32);
+    --error:#a4402c;
+    --scrim:rgba(250,246,239,0.7);
+    --ghost-line:var(--line);
+  }
+  html[data-theme="night"]{
+    color-scheme:dark;
+    --bg:#0d0620;
+    --bg-2:#170b2e;
+    --surface:rgba(25,13,50,0.9);
+    --surface-2:#23143f;
+    --ink:#f5effd;
+    --muted:#c9bce2;
+    --faint:#ab9dc8;
+    --accent:#ff6aa6;
+    --accent-soft:#ffa6cd;
+    --on-accent:#1a0a2e;
+    --line:#35255c;
+    --line-soft:#2a1b49;
+    --shadow:rgba(0,0,0,0.55);
+    --glow-a:rgba(255,64,146,0.08);
+    --glow-b:rgba(120,90,255,0.08);
+    --overlay:rgba(6,2,18,0.74);
+    --modal-shadow:rgba(0,0,0,0.6);
+    --qr-glow:rgba(255,64,146,0.35);
+    --error:#ff8f80;
+    --scrim:rgba(10,4,28,0.62);
+    --ghost-line:#56427f;
+  }
+  body{ transition: color .4s ease; }
+  .btn-ghost{ border-color:var(--ghost-line); }
+  .divider{ color:var(--accent); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  /* backdrop canvas sits behind everything */
+  #wtBackdrop{ position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; display:block; }
+
+  /* hero, Daylight: feather the banner's top and bottom so the ribbons slide behind it instead of being cut off */
+  .hero-media img{
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 85%, transparent 100%);
+  }
+  html:not([data-theme="night"]) .brand-logo{ mix-blend-mode:multiply; }
+
+  /* hero, Purple Night: use the same building crop phones already use (it trims the photo's cream side fade)
+     and feather all four edges, so no pale band shows on the dark page */
+  html[data-theme="night"] .hero-media{
+    width:min(100vw, 640px); aspect-ratio:0.88 / 1;
+    margin-left:calc(50% - min(50vw, 320px)); margin-right:0;
+  }
+  html[data-theme="night"] .hero-media img{
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 7%, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 7%, #000 80%, transparent 100%);
+    mask-composite: intersect;
+  }
+  /* keep hero copy crisp over the moving ribbons */
+  .hero-copy{ position:relative; }
+  .hero-copy::before{
+    content:""; position:absolute; inset:-30px -40px; z-index:-1; pointer-events:none;
+    background: radial-gradient(closest-side, var(--scrim), transparent);
+  }
+  /* logo on the dark theme: flip dark lettering to light and drop any light background */
+  html[data-theme="night"] .brand-logo{ filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+
+  /* theme switch */
+  .nav-end{ display:flex; align-items:center; gap:14px; }
+  .theme-toggle{
+    width:38px; height:38px; flex:none; padding:0;
+    border-radius:999px; border:1px solid var(--ghost-line);
+    background:var(--surface); color:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .theme-toggle:hover{ border-color:var(--accent); color:var(--accent-soft); }
+  .theme-toggle svg{ width:18px; height:18px; display:block; }
+  .theme-toggle .i-sun{ display:none; }
+  html[data-theme="night"] .theme-toggle .i-sun{ display:block; }
+  html[data-theme="night"] .theme-toggle .i-moon{ display:none; }
 </style>
+
+<canvas id="wtBackdrop" aria-hidden="true"></canvas>
 
 <header class="nav">
   <a class="brand" href="#top">
@@ -444,7 +543,13 @@
     <a href="#reviews">Reviews</a>
     <a href="#book">Contact</a>
   </nav>
-  <a class="navphone" href="tel:+919876184969">+91 98761 84969</a>
+  <div class="nav-end">
+    <a class="navphone" href="tel:+919876184969">+91 98761 84969</a>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to Purple Night">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+    </button>
+  </div>
 </header>
 
 <main id="top">
@@ -466,7 +571,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -526,7 +631,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -558,7 +663,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -595,7 +700,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -689,7 +794,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -716,7 +821,7 @@
   <div class="divider" aria-hidden="true">
     <svg viewBox="0 0 600 28" preserveAspectRatio="none">
       <path d="M0,14 C25,2 50,2 75,14 C100,26 125,26 150,14 C175,2 200,2 225,14 C250,26 275,26 300,14 L320,14 L320,4 L350,4 L350,24 L380,24 L380,4 L410,4 L410,24 L440,24 L440,14 L600,14"
-        fill="none" stroke="#c1651f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
 
@@ -765,7 +870,7 @@
         <div class="query-actions">
           <a href="#" id="querySubmitWa" class="booking-submit" target="_blank" rel="noopener">Send via WhatsApp</a>
         </div>
-        <div class="field-hint" id="queryError" style="display:none; color:#a4402c; text-align:center;">Please fill in your name, contact, and message first.</div>
+        <div class="field-hint" id="queryError" style="display:none; color:var(--error); text-align:center;">Please fill in your name, contact, and message first.</div>
       </form>
     </div>
   </section>
@@ -869,7 +974,7 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.8 14.24c-.24.68-1.4 1.32-1.93 1.36-.5.05-1.13.07-1.83-.11-.42-.11-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.93-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .55.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.29-.13.57.17.29.75 1.24 1.6 2.01 1.1 1 2.03 1.31 2.31 1.46.28.14.44.12.6-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.68-.17 1.36Z"/></svg>
           Send Request on WhatsApp
         </a>
-        <div class="field-hint" id="bookingError" style="display:none; color:#a4402c; text-align:center;">Please fill in the highlighted field(s) above before sending.</div>
+        <div class="field-hint" id="bookingError" style="display:none; color:var(--error); text-align:center;">Please fill in the highlighted field(s) above before sending.</div>
         <div class="booking-note">This opens WhatsApp with your message ready to send. Payment is only ever due once we've confirmed your slot.</div>
       </form>
     </div>
@@ -1118,4 +1223,185 @@
 })();
 </script>
 
+<script>
+/* Wavetrap backdrop: light ribbons from the logo tag, with a sine-to-square "trap" every 12 s.
+   Themes: Daylight (copper on cream) and Purple Night (logo palette). */
+(function(){
+  var root=document.documentElement;
+  var cvs=document.getElementById('wtBackdrop');
+  var toggle=document.getElementById('themeToggle');
+  var meta=document.querySelector('meta[name="theme-color"]');
+  var ctx=cvs&&cvs.getContext?cvs.getContext('2d'):null;
+
+  var small=window.matchMedia('(max-width: 700px)');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var darkPref=window.matchMedia('(prefers-color-scheme: dark)');
+
+  var DEF={night:0.6, day:1};          // intensities approved by Alam
+  var META={night:'#0d0620', day:'#faf6ef'};
+  var mode=root.getAttribute('data-theme')==='night'?'night':'day';
+  var I=DEF[mode];
+
+  var PAL={
+    night:{bg0:'#06021a',bg1:'#1f0d44',bg2:'74,29,120',glow:'255,64,146',mid:'255,140,200',core:'255,255,255',ember:'255,96,150',bokeh:'150,128,255',comp:'lighter'},
+    day:{bg0:'#faf6ef',bg1:'#f5ebdd',bg2:'236,206,170',glow:'193,101,31',mid:'193,101,31',core:'154,78,23',ember:'193,101,31',bokeh:'193,101,31',comp:'source-over'}
+  };
+  var RIB=[
+    {y:.64,amp:.11,k:1.5,speed:.20,phase:0,  n:4,gap:8,tilt:-.12},
+    {y:.36,amp:.07,k:2.2,speed:-.13,phase:2.1,n:3,gap:6,tilt:.08},
+    {y:.84,amp:.05,k:3.0,speed:.27,phase:4.2,n:3,gap:5,tilt:0}
+  ];
+  var CYCLE=12, W=0, H=0, DPR=1, t=4, last=0, embers=[], bokeh=[];
+
+  function rand(a,b){return a+Math.random()*(b-a);}
+  function smooth(a,b,x){x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);}
+
+  function build(){
+    var ne=small.matches?36:80; embers=[];
+    for(var i=0;i<ne;i++)embers.push({x:rand(0,W),y:rand(0,H),vy:rand(-22,-7),vx:rand(-4,4),r:rand(.6,1.8),ph:rand(0,6.3)});
+    var nb=small.matches?5:9; bokeh=[];
+    for(var j=0;j<nb;j++)bokeh.push({x:rand(0,W),y:rand(0,H),r:rand(30,120),vx:rand(-5,5),vy:rand(-3,3),a:rand(.4,1)});
+  }
+  function resize(){
+    if(!ctx)return;
+    DPR=Math.min(window.devicePixelRatio||1,small.matches?1.5:2);
+    W=window.innerWidth;H=window.innerHeight;
+    cvs.width=Math.round(W*DPR);cvs.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    build();
+  }
+  function trapAmount(tt){var p=(tt%CYCLE)/CYCLE;return smooth(.55,.64,p)*(1-smooth(.76,.88,p));}
+  function flash(tt){var p=(tt%CYCLE)/CYCLE;return smooth(.53,.59,p)*(1-smooth(.59,.7,p));}
+
+  function waveY(r,ri,s,u,tt,M,trapU){
+    var th=u*r.k*Math.PI*2+r.phase+tt*r.speed+s*.13;
+    var w=Math.sin(th);
+    var m=M*Math.exp(-Math.pow((u-trapU)/.17,2));
+    var sq=Math.tanh(6*w)/Math.tanh(6);
+    var v=w+(sq-w)*m;
+    var base=H*(r.y+r.tilt*(u-.5))+H*.018*Math.sin(tt*.07+ri*1.7);
+    return base+v*r.amp*H*(1-s*.06)+(s-(r.n-1)/2)*r.gap;
+  }
+
+  function draw(tt){
+    if(!ctx||!W)return;
+    var P=PAL[mode], night=mode==='night';
+    var trapU=small.matches?.55:.7, M=trapAmount(tt), F=flash(tt);
+
+    ctx.globalCompositeOperation='source-over';
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,P.bg0);g.addColorStop(1,P.bg1);
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    var rg=ctx.createRadialGradient(W*.72,H*.42,0,W*.72,H*.42,Math.max(W,H)*.7);
+    rg.addColorStop(0,'rgba('+P.bg2+','+(night?.55:.5)*I+')');rg.addColorStop(1,'rgba('+P.bg2+',0)');
+    ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+
+    ctx.globalCompositeOperation=P.comp;
+    for(var b=0;b<bokeh.length;b++){
+      var o=bokeh[b], a=(night?.07:.05)*I*o.a;
+      var bg=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+      bg.addColorStop(0,'rgba('+P.bokeh+','+a+')');bg.addColorStop(1,'rgba('+P.bokeh+',0)');
+      ctx.fillStyle=bg;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,6.283);ctx.fill();
+    }
+
+    var step=small.matches?10:6;
+    for(var ri=0;ri<RIB.length;ri++){
+      var r=RIB[ri];
+      for(var s=0;s<r.n;s++){
+        ctx.beginPath();
+        for(var x=-20;x<=W+20;x+=step){
+          var y=waveY(r,ri,s,x/W,tt,M,trapU);
+          if(x===-20)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        }
+        if(night){
+          ctx.lineWidth=9;ctx.strokeStyle='rgba('+P.glow+','+(.05*I)+')';ctx.stroke();
+          ctx.lineWidth=3.2;ctx.strokeStyle='rgba('+P.mid+','+(.14*I)+')';ctx.stroke();
+          ctx.lineWidth=1.1;ctx.strokeStyle='rgba('+P.core+','+(.42*I)+')';ctx.stroke();
+        }else{
+          ctx.lineWidth=6;ctx.strokeStyle='rgba('+P.glow+','+(.045*I)+')';ctx.stroke();
+          ctx.lineWidth=1.1;ctx.strokeStyle='rgba('+P.core+','+(.32*I)+')';ctx.stroke();
+        }
+      }
+      var hu=((tt*.045+ri*.37)%1.3)-.15, hx=hu*W, hy=waveY(r,ri,0,hu,tt,M,trapU), hr=night?26:18;
+      var hg=ctx.createRadialGradient(hx,hy,0,hx,hy,hr);
+      hg.addColorStop(0,'rgba('+P.core+','+(night?.85:.35)*I+')');
+      hg.addColorStop(.25,'rgba('+P.glow+','+(night?.35:.15)*I+')');
+      hg.addColorStop(1,'rgba('+P.glow+',0)');
+      ctx.fillStyle=hg;ctx.beginPath();ctx.arc(hx,hy,hr,0,6.283);ctx.fill();
+    }
+
+    if(F>0.001){
+      var cx=W*trapU, cy=waveY(RIB[0],0,0,trapU,tt,M,trapU), fr=Math.max(W,H)*.35;
+      var fg=ctx.createRadialGradient(cx,cy,0,cx,cy,fr);
+      fg.addColorStop(0,'rgba('+P.core+','+(night?.5:.18)*F*I+')');
+      fg.addColorStop(.2,'rgba('+P.glow+','+(night?.18:.08)*F*I+')');
+      fg.addColorStop(1,'rgba('+P.glow+',0)');
+      ctx.fillStyle=fg;ctx.fillRect(0,0,W,H);
+      if(night){
+        ctx.save();ctx.translate(cx,cy);ctx.rotate(tt*.05);
+        for(var k=0;k<16;k++){
+          ctx.rotate(Math.PI*2/16);
+          ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(fr*1.6,-14);ctx.lineTo(fr*1.6,14);ctx.closePath();
+          ctx.fillStyle='rgba(220,200,255,'+(.035*F*I)+')';ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    for(var e=0;e<embers.length;e++){
+      var p=embers[e], fl=.5+.5*Math.sin(tt*3+p.ph);
+      ctx.fillStyle='rgba('+P.ember+','+((night?.55:.35)*I*fl)+')';
+      ctx.fillRect(p.x,p.y,p.r,p.r*2.2);
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+
+  function advance(dt){
+    t+=dt;
+    for(var e=0;e<embers.length;e++){
+      var p=embers[e];p.y+=p.vy*dt;p.x+=p.vx*dt;
+      if(p.y<-10){p.y=H+10;p.x=rand(0,W);}
+    }
+    for(var b=0;b<bokeh.length;b++){
+      var o=bokeh[b];o.x+=o.vx*dt;o.y+=o.vy*dt;
+      if(o.x<-o.r)o.x=W+o.r;if(o.x>W+o.r)o.x=-o.r;
+      if(o.y<-o.r)o.y=H+o.r;if(o.y>H+o.r)o.y=-o.r;
+    }
+  }
+
+  function frame(now){
+    requestAnimationFrame(frame);
+    if(reduce.matches)return;               // still frame for reduced-motion visitors
+    if(!last)last=now;
+    var dt=(now-last)/1000;
+    if(small.matches&&dt<1/31)return;       // ~30 fps on phones to save battery
+    last=now;
+    advance(Math.min(dt,.1));
+    draw(t);
+  }
+
+  function applyTheme(next,save){
+    mode=next; I=DEF[mode];
+    root.setAttribute('data-theme',mode);
+    if(meta)meta.setAttribute('content',META[mode]);
+    if(toggle)toggle.setAttribute('aria-label',mode==='night'?'Switch to Daylight':'Switch to Purple Night');
+    if(save){try{localStorage.setItem('wt-theme',mode);}catch(e){}}
+    draw(t);
+  }
+  if(toggle)toggle.addEventListener('click',function(){applyTheme(mode==='night'?'day':'night',true);});
+  function onSystemTheme(){
+    var saved=null;try{saved=localStorage.getItem('wt-theme');}catch(e){}
+    if(saved!=='day'&&saved!=='night')applyTheme(darkPref.matches?'night':'day',false);
+  }
+  if(darkPref.addEventListener)darkPref.addEventListener('change',onSystemTheme);
+  else if(darkPref.addListener)darkPref.addListener(onSystemTheme);
+  if(reduce.addEventListener)reduce.addEventListener('change',function(){last=0;draw(t);});
+
+  window.addEventListener('resize',function(){resize();draw(t);});
+  resize();
+  applyTheme(mode,false);
+  if(ctx)requestAnimationFrame(frame);
+})();
+
+</script>
 </body></html>
