@@ -636,7 +636,7 @@
         </div>
         <div class="field-row">
           <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required></div>
-          <div class="field"><label for="rgLen">Track length (m:ss) <span class="req">*</span></label><input id="rgLen" name="length" required placeholder="2:58" inputmode="numeric"></div>
+          <div class="field"><label for="rgLen">Track length (m:ss) <span class="req">*</span></label><input id="rgLen" name="length" required placeholder="2:58 (or 258)" inputmode="decimal"></div>
         </div>
         <div class="field"><label for="rgMix">Link to your mix (Google Drive, WeTransfer, Dropbox) <span class="req">*</span></label><input id="rgMix" name="mix_link" type="url" required placeholder="https://"><span class="field-hint">Set the link so anyone with it can download.</span></div>
         <div class="field"><label for="rgRef">Reference track link</label><input id="rgRef" name="reference" type="url" placeholder="YouTube or Spotify link of a song you like the sound of"></div>
@@ -680,7 +680,12 @@
   var STUDIO_WHATSAPP = '919876184969';
   var form=document.getElementById('regForm'), err=document.getElementById('rgError'), btn=document.getElementById('rgSubmit');
   function val(id){ return (document.getElementById(id).value||'').trim(); }
-  function secs(s){ var m=/^(\d{1,2})[:.](\d{2})$/.exec(s); return m? (+m[1])*60+(+m[2]) : NaN; }
+  function secs(s){
+    s=String(s).trim();
+    var m=/^(\d{1,2})\s*[:.,;'\- ]\s*(\d{1,2})$/.exec(s) || /^(\d{1,2})(\d{2})$/.exec(s.replace(/\s/g,''));
+    if(!m || +m[2]>59) return NaN; return (+m[1])*60+(+m[2]);
+  }
+  function mss(t){ return Math.floor(t/60)+':'+('0'+(t%60)).slice(-2); }
   form.addEventListener('submit', function(ev){
     ev.preventDefault(); err.textContent='';
     if(val('rgHp')) return;
@@ -689,11 +694,12 @@
     if(!/^\S+@\S+\.\S+$/.test(val('rgEmail'))){ err.textContent='Please check your email address.'; return; }
     if(val('rgPhone').replace(/\D/g,'').length<10){ err.textContent='Please check your WhatsApp number.'; return; }
     var t=secs(val('rgLen'));
-    if(isNaN(t)){ err.textContent='Write the length like 2:58.'; return; }
+    if(isNaN(t)){ err.textContent='Write the length like 2:58, 2.58 or 258.'; return; }
     if(t>180){ err.textContent='This offer is for tracks up to 3:00. Longer tracks are at our regular rate; message us on WhatsApp.'; return; }
     if(!/^https?:\/\//i.test(val('rgMix'))){ err.textContent='Please paste a full link to your mix, starting with https://'; return; }
     if(!document.getElementById('rgRules').checked){ err.textContent='Please tick the box to confirm the specs and the one-track rule.'; return; }
     var data=new URLSearchParams(new FormData(form));
+    data.set('length', mss(t));
     data.set('consent', document.getElementById('rgConsent').checked ? 'yes' : 'no');
     data.set('rules', 'yes'); data.delete('website');
     data.set('page', location.href);
@@ -701,7 +707,7 @@
     var msg='Hi Wavetrap, I just registered for the First Master offer.\n'+
       'Name: '+val('rgName')+' ('+val('rgArtist')+')\n'+
       'Instagram: '+val('rgInsta')+'\n'+
-      'Track: '+val('rgTitle')+' ('+val('rgLen')+')\n'+
+      'Track: '+val('rgTitle')+' ('+mss(t)+')\n'+
       'Mix: '+val('rgMix');
     var wa='https://wa.me/'+STUDIO_WHATSAPP+'?text='+encodeURIComponent(msg);
     function done(){
@@ -709,9 +715,17 @@
       document.getElementById('rgWa').href=wa; d.scrollIntoView({behavior:'smooth',block:'center'});
       window.open(wa,'_blank');
     }
-    fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:data}).then(done,function(){
+    function fail(){
       btn.disabled=false; btn.textContent='Register my track';
       err.textContent='Could not send just now. Check your connection and try again, or message us on WhatsApp.';
+    }
+    function post(){ return fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:data}); }
+    post().then(done,function(){
+      /* one retry, then a beacon (fire-and-forget) before giving up */
+      post().then(done,function(){
+        try{ if(navigator.sendBeacon && navigator.sendBeacon(SHEET_URL,data)){ done(); return; } }catch(e){}
+        fail();
+      });
     });
   });
 })();
