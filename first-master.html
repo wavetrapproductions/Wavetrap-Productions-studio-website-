@@ -1,0 +1,902 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>First Master offer · Wavetrap Productions</title>
+<meta name="description" content="Your first track mastered on cutting-edge analog hardware at an introductory price. One track per artist.">
+<meta name="theme-color" content="#faf6ef">
+<script>
+(function(){
+  var s=null;
+  try{ s=localStorage.getItem('wt-theme'); }catch(e){}
+  var t=(s==='day'||s==='night')?s:((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'night':'day');
+  document.documentElement.setAttribute('data-theme',t);
+})();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    color-scheme: light;
+    --bg: #faf6ef;
+    --bg-2: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f3eee4;
+    --ink: #221b14;
+    --muted: #6e6255;
+    --faint: #83766a;
+    --accent: #c1651f;
+    --accent-soft: #9a4e17;
+    --line: #e8dfd0;
+    --line-soft: #f1eae0;
+    --shadow: rgba(90,66,40,0.14);
+    --radius: 14px;
+    --wrap: 880px;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    overflow-x:hidden;
+    background:
+      radial-gradient(60% 50% at 15% -10%, var(--glow-a), transparent 60%),
+      radial-gradient(50% 40% at 100% 0%, var(--glow-b), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Work Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    padding-inline:20px;
+    padding-bottom:100px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", ui-serif, Georgia, serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  section{ max-width:var(--wrap); margin-inline:auto; }
+
+  /* ---- nav ---- */
+  .nav{
+    max-width:var(--wrap);
+    margin-inline:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding-block: 18px;
+  }
+  .brand{ display:flex; align-items:center; text-decoration:none; }
+  .brand-logo{ height:32px; width:auto; display:block; }
+  .navlinks{ display:flex; gap:22px; font-size:0.92rem; color:var(--muted); }
+  .navlinks a{ text-decoration:none; }
+  .navlinks a:hover{ color:var(--accent-soft); }
+  .navphone{ display:none; }
+  @media (min-width:640px){ .navphone{ display:block; font-size:0.9rem; color:var(--muted);} }
+  @media (max-width:560px){ .navlinks{ display:none; } }
+
+  /* ---- hero ---- */
+  .hero{
+    max-width:none;
+    margin-inline:0;
+    padding-block: 12px 8px;
+  }
+  .hero-media{
+    width:100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    overflow:hidden;
+  }
+  .hero-media img{ width:100%; height:auto; display:block; }
+  /* Below desktop widths the wide banner (with its generous side fade)
+     shrinks the actual building+signage down to a sliver. Crop in with
+     object-fit instead: this only ever trims the fade/background on the
+     left and right (the WAVETRAP text sits dead-center in the source
+     photo), full height — including the full vertical text — stays intact. */
+  @media (max-width:900px){
+    .hero-media{ aspect-ratio: 1.35 / 1; }
+    .hero-media img{ width:100%; height:100%; object-fit:cover; object-position:center; }
+  }
+  @media (max-width:560px){
+    .hero-media{ aspect-ratio: 0.88 / 1; }
+  }
+  .hero-copy{
+    max-width:620px;
+    margin-inline:auto;
+    padding-inline: 20px;
+    padding-block: 22px 10px;
+    display:grid;
+    gap:18px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.76rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+  }
+  h1.headline{ font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height:1.08; }
+  .sub{ color:var(--muted); font-size:1.02rem; max-width:56ch; }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:6px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px;
+    border-radius:999px;
+    font-size:0.92rem; font-weight:500;
+    text-decoration:none;
+    border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--accent); color:var(--on-accent); }
+  .btn-primary:hover{ background:var(--accent-soft); }
+  .btn-ghost{ border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent-soft); }
+
+  /* ---- divider ---- */
+  .divider{ max-width:var(--wrap); margin: 6px auto; padding-inline: 0; opacity:0.6; }
+  .divider svg{ width:100%; height:28px; display:block; }
+
+  /* ---- section heads ---- */
+  .section{ padding-block: 34px; }
+  .section-head{ display:grid; gap:6px; margin-bottom:26px; max-width: 60ch; }
+  .kicker{
+    font-family:"IBM Plex Mono", monospace; font-size:0.74rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--accent-soft);
+  }
+  .section-head h2{ font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+  .section-head p{ color:var(--muted); margin:0; font-size:0.98rem; }
+
+  /* ---- services ---- */
+  .services{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+  @media (max-width:860px){ .services{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width:560px){ .services{ grid-template-columns: 1fr; } }
+  .price.price-text{ font-size:1.02rem; font-family:"Work Sans", sans-serif; font-weight:500; color:var(--accent-soft); }
+  .svc{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:22px 22px 20px;
+    display:grid; gap:12px;
+    box-shadow: 0 14px 30px -22px var(--shadow);
+  }
+  .svc .tag{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-soft); }
+  .svc h3{ font-size:1.3rem; }
+  .price{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:1.5rem; color:var(--ink);
+    display:flex; align-items:baseline; gap:6px;
+  }
+  .price small{ font-size:0.8rem; color:var(--muted); font-weight:400; }
+  .svc p{ color:var(--muted); margin:0; font-size:0.94rem; }
+  .svc-foot{ font-size:0.86rem; color:var(--faint); border-top:1px solid var(--line-soft); padding-top:12px; margin-top:4px; }
+
+  /* ---- gallery ---- */
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:10px;
+  }
+  .gallery a{ display:block; border-radius:10px; overflow:hidden; border:1px solid var(--line); }
+  .gallery img{ width:100%; height:100%; aspect-ratio: 4/3; object-fit:cover; display:block; transition:transform .35s ease; }
+  .gallery a:hover img{ transform:scale(1.04); }
+  .gallery .tall{ grid-row: span 2; }
+  .gallery .tall img{ aspect-ratio: 4/7; }
+  @media (max-width:720px){
+    .gallery{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---- image rows (mastering suite / facade) ---- */
+  .imgrow-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-soft); margin: 26px 0 12px; }
+  .imgrow-2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .imgrow-2 a{ display:block; border-radius:10px; overflow:hidden; border:1px solid var(--line); }
+  .imgrow-2 img{ width:100%; aspect-ratio: 4/3; object-fit:cover; display:block; transition:transform .35s ease; }
+  .imgrow-2 a:hover img{ transform:scale(1.04); }
+  @media (max-width:640px){ .imgrow-2{ grid-template-columns:1fr; } }
+
+  /* ---- artists ---- */
+  .artist-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  @media (max-width:760px){ .artist-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:480px){ .artist-grid{ grid-template-columns:1fr; } }
+  .artist-card{ margin:0; display:grid; gap:10px; }
+  .artist-frame{
+    position:relative; display:block; aspect-ratio: 4/5; border-radius:12px; overflow:hidden;
+    border:1px solid var(--line); background:var(--surface-2);
+  }
+  .af-bg{
+    position:absolute; inset:-12px; width:calc(100% + 24px); height:calc(100% + 24px);
+    object-fit:cover; filter: blur(22px) saturate(1.15) brightness(0.92); transform:scale(1.12);
+    -webkit-mask-image: radial-gradient(115% 115% at 50% 50%, #000 50%, transparent 100%);
+    mask-image: radial-gradient(115% 115% at 50% 50%, #000 50%, transparent 100%);
+  }
+  .af-fg{
+    position:relative; z-index:1; width:100%; height:100%; object-fit:contain; display:block;
+    transition:transform .35s ease;
+  }
+  .artist-frame:hover .af-fg{ transform:scale(1.035); }
+  .artist-card figcaption strong{ display:block; color:var(--ink); font-size:0.98rem; font-weight:500; }
+  .artist-card figcaption span{ display:block; color:var(--faint); font-size:0.84rem; margin-top:2px; }
+
+
+  /* ---- equipment ---- */
+  .rack{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 6px 0;
+    box-shadow: 0 14px 30px -22px var(--shadow);
+  }
+  .rack-row{
+    display:grid; grid-template-columns: 160px 1fr;
+    gap:18px;
+    padding:16px 22px;
+    border-bottom:1px solid var(--line-soft);
+    align-items:baseline;
+  }
+  .rack-row:last-child{ border-bottom:none; }
+  @media (max-width:560px){ .rack-row{ grid-template-columns:1fr; gap:4px; } }
+  .rack-label{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; letter-spacing:0.06em; color:var(--faint); text-transform:uppercase; }
+  .rack-value{ color:var(--ink); font-size:0.98rem; }
+  .rack-value .sep{ color:var(--faint); padding-inline:6px; }
+
+  /* ---- reviews ---- */
+  .review-wrap{
+    display:grid; grid-template-columns: auto 1fr; gap:34px; align-items:center;
+  }
+  @media (max-width:640px){ .review-wrap{ grid-template-columns:1fr; gap:22px; } }
+  .stat{
+    display:grid; justify-items:start; gap:4px;
+  }
+  .stat .num{ font-family:"Fraunces", serif; font-size:3.4rem; font-weight:600; line-height:1; color:var(--accent-soft); }
+  .stars{ letter-spacing:2px; color:var(--accent); font-size:1rem; }
+  .stat .count{ color:var(--muted); font-size:0.9rem; }
+  .quotes{ display:grid; gap:14px; }
+  .quote{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:14px 18px; font-size:0.95rem; color:var(--ink);
+  }
+  .quote::before{ content:"\201C"; color:var(--accent); font-family:"Fraunces",serif; margin-right:4px; }
+  .review-note{ font-size:0.86rem; color:var(--faint); margin-top:4px; }
+  .review-note a{ color:var(--accent-soft); text-decoration:underline; text-underline-offset:3px; }
+
+  /* ---- book ---- */
+  .book{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:28px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px;
+    box-shadow: 0 14px 30px -22px var(--shadow);
+  }
+  @media (max-width:640px){ .book{ grid-template-columns:1fr; } }
+  .book h2{ font-size:1.5rem; margin-bottom:10px; }
+  .book p.lead{ color:var(--muted); margin:0 0 18px; }
+  .infolist{ display:grid; gap:12px; font-size:0.95rem; }
+  .infolist div{ display:grid; grid-template-columns:96px 1fr; gap:10px; }
+  .infolist .k{ color:var(--faint); font-family:"IBM Plex Mono",monospace; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.08em; padding-top:2px; }
+  .infolist a{ text-decoration:underline; text-underline-offset:3px; color:var(--ink); overflow-wrap:anywhere; }
+  .infolist a:hover{ color:var(--accent-soft); }
+  .book-cta{ display:grid; align-content:center; justify-items:start; gap:14px; border-left:1px solid var(--line); padding-left:28px; }
+  @media (max-width:640px){ .book-cta{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:20px; } }
+
+  /* ---- query form ---- */
+  .query-card{
+    margin-top:22px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:30px;
+    box-shadow: 0 14px 30px -22px var(--shadow);
+  }
+  .query-card h3{ font-size:1.3rem; }
+  .query-card > p{ color:var(--muted); margin-top:6px; margin-bottom:18px; font-size:0.96rem; }
+  .query-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:2px; }
+  .query-actions .booking-submit{ margin-top:0; flex:1 1 200px; text-align:center; }
+
+  /* ---- floating book button ---- */
+  .book-fab{
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 60;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 22px;
+    border-radius:999px;
+    background:var(--accent); color:var(--on-accent);
+    font-size:0.94rem; font-weight:600;
+    border:none; cursor:pointer;
+    box-shadow: 0 14px 30px -10px var(--shadow);
+    opacity:0; transform: translateY(14px) scale(0.96);
+    pointer-events:none;
+    transition: opacity .25s ease, transform .25s ease, background .2s ease;
+  }
+  .book-fab.is-visible{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .book-fab:hover{ background:var(--accent-soft); }
+  .book-fab svg{ width:16px; height:16px; flex:none; }
+  @media (max-width:560px){
+    .book-fab{ right:16px; bottom:16px; padding:13px 18px; font-size:0.9rem; }
+    body{ padding-bottom:88px; }
+  }
+
+  /* ---- booking modal ---- */
+  .booking-overlay{
+    position:fixed; inset:0; z-index:80;
+    background:var(--overlay);
+    backdrop-filter: blur(2px);
+    display:none;
+    align-items:flex-start; justify-content:center;
+    padding: 26px 16px;
+    overflow-y:auto;
+  }
+  .booking-overlay.is-open{ display:flex; }
+  .booking-modal{
+    width:100%; max-width:620px;
+    background:var(--bg-2);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding: 26px 24px 28px;
+    position:relative;
+    box-shadow: 0 40px 80px -30px var(--modal-shadow);
+    margin-block: 20px;
+  }
+  .booking-close{
+    position:absolute; top:16px; right:16px;
+    width:34px; height:34px; border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line);
+    color:var(--muted); cursor:pointer; font-size:1.1rem; line-height:1;
+  }
+  .booking-close:hover{ color:var(--ink); border-color:var(--accent); }
+  .booking-modal h3{ font-size:1.35rem; padding-right:40px; }
+  .booking-sub{ color:var(--muted); font-size:0.92rem; margin-top:6px; }
+
+  .booking-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0 24px; }
+  @media (max-width:560px){ .booking-steps{ grid-template-columns:1fr; } }
+  .booking-step{ background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:14px 14px 16px; }
+  .booking-step .num{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; color:var(--accent-soft); }
+  .booking-step .lbl{ color:var(--ink); font-size:0.9rem; margin-top:4px; }
+  .qr-card{
+    position:relative;
+    margin-top:10px;
+    display:inline-block;
+    border-radius:12px;
+    overflow:hidden;
+    line-height:0;
+  }
+  .qr-card::before{
+    content:"";
+    position:absolute; inset:-16px;
+    background: radial-gradient(60% 60% at 50% 40%, var(--qr-glow), transparent 70%);
+    filter: blur(10px);
+    z-index:0;
+  }
+  .qr-card img{
+    position:relative; z-index:1;
+    width:96px; height:auto; display:block;
+    border-radius:12px;
+    border:1px solid var(--line);
+    box-shadow: 0 10px 24px -10px var(--shadow);
+  }
+  .qr-caption{ margin-top:6px; font-size:0.72rem; color:var(--faint); }
+
+  .booking-form{ display:grid; gap:16px; position:relative; }
+  .field{ display:grid; gap:6px; }
+  .field label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--faint); }
+  .field input, .field select, .field textarea{
+    background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+    padding:11px 13px; color:var(--ink); font-family:"Work Sans",sans-serif; font-size:0.95rem;
+    width:100%;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:560px){ .field-row{ grid-template-columns:1fr; } }
+  .field-hint{ color:var(--faint); font-size:0.8rem; }
+  .booking-submit{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 20px; border-radius:999px; border:none; cursor:pointer;
+    background:var(--accent); color:var(--on-accent); font-size:0.96rem; font-weight:600;
+    margin-top:4px; text-decoration:none;
+  }
+  .booking-submit:hover{ background:var(--accent-soft); }
+  .booking-submit:disabled{ opacity:0.65; cursor:default; }
+  .booking-note{ color:var(--faint); font-size:0.82rem; text-align:center; margin-top:2px; }
+
+  .booking-success{ display:none; text-align:center; padding: 10px 4px 4px; }
+  .booking-success.is-shown{ display:block; }
+  .booking-success .tick{
+    width:52px; height:52px; border-radius:999px; background:var(--surface-2); border:1px solid var(--accent);
+    color:var(--accent-soft); display:flex; align-items:center; justify-content:center; margin:4px auto 16px;
+    font-size:1.4rem;
+  }
+  .booking-success h3{ font-size:1.25rem; }
+  .booking-success p{ color:var(--muted); font-size:0.94rem; margin-top:10px; max-width:44ch; margin-inline:auto; }
+  .booking-success .booking-steps{ margin-top:22px; text-align:left; }
+  .booking-again{
+    margin-top:20px; display:inline-block; color:var(--accent-soft); text-decoration:underline; text-underline-offset:3px;
+    font-size:0.9rem; cursor:pointer; background:none; border:none; font-family:inherit;
+  }
+
+  .wa-actions{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px; }
+  .wa-actions .booking-submit{ margin-top:0; }
+  .wa-copy-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:13px 18px; border-radius:999px; border:1px solid var(--line); cursor:pointer;
+    background:var(--surface-2); color:var(--ink); font-size:0.92rem; font-weight:500; font-family:inherit;
+  }
+  .wa-copy-btn:hover{ border-color:var(--accent); color:var(--accent-soft); }
+  .wa-message-box{
+    width:100%; margin-top:16px;
+    background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; color:var(--muted); font-family:"IBM Plex Mono",monospace; font-size:0.82rem;
+    line-height:1.6; resize:vertical; min-height:110px;
+  }
+  .wa-message-box:focus{ outline:none; border-color:var(--accent); color:var(--ink); }
+  .wa-copied-note{ font-size:0.8rem; color:var(--accent-soft); margin-top:6px; min-height:1.2em; }
+
+  /* ---- footer ---- */
+  footer{
+    max-width:var(--wrap); margin:40px auto 0; padding-block: 26px 40px;
+    border-top:1px solid var(--line-soft);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px;
+    color:var(--faint); font-size:0.86rem;
+  }
+  footer .social{ display:flex; gap:16px; }
+  footer a{ text-decoration:none; color:var(--faint); }
+  footer a:hover{ color:var(--accent-soft); }
+
+  /* ---- themes: Daylight (default tokens above) and Purple Night ---- */
+  :root{
+    --on-accent:#fff8f0;
+    --glow-a:rgba(193,101,31,0.07);
+    --glow-b:rgba(193,101,31,0.05);
+    --overlay:rgba(34,27,20,0.55);
+    --modal-shadow:rgba(34,27,20,0.35);
+    --qr-glow:rgba(193,101,31,0.32);
+    --error:#a4402c;
+    --scrim:rgba(250,246,239,0.7);
+    --ghost-line:var(--line);
+  }
+  html[data-theme="night"]{
+    color-scheme:dark;
+    --bg:#0d0620;
+    --bg-2:#170b2e;
+    --surface:rgba(25,13,50,0.9);
+    --surface-2:#23143f;
+    --ink:#f5effd;
+    --muted:#c9bce2;
+    --faint:#ab9dc8;
+    --accent:#ff6aa6;
+    --accent-soft:#ffa6cd;
+    --on-accent:#1a0a2e;
+    --line:#35255c;
+    --line-soft:#2a1b49;
+    --shadow:rgba(0,0,0,0.55);
+    --glow-a:rgba(255,64,146,0.08);
+    --glow-b:rgba(120,90,255,0.08);
+    --overlay:rgba(6,2,18,0.74);
+    --modal-shadow:rgba(0,0,0,0.6);
+    --qr-glow:rgba(255,64,146,0.35);
+    --error:#ff8f80;
+    --scrim:rgba(10,4,28,0.62);
+    --ghost-line:#56427f;
+  }
+  body{ transition: color .4s ease; }
+  .btn-ghost{ border-color:var(--ghost-line); }
+  .divider{ color:var(--accent); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  /* backdrop canvas sits behind everything */
+  #wtBackdrop{ position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; display:block; }
+
+  /* hero, Daylight: feather the banner's top and bottom so the ribbons slide behind it instead of being cut off */
+  .hero-media img{
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 85%, transparent 100%);
+  }
+  html:not([data-theme="night"]) .brand-logo{ mix-blend-mode:multiply; }
+
+  /* hero, Purple Night: use the same building crop phones already use (it trims the photo's cream side fade)
+     and feather all four edges, so no pale band shows on the dark page */
+  html[data-theme="night"] .hero-media{
+    width:min(100vw, 640px); aspect-ratio:0.88 / 1;
+    margin-left:calc(50% - min(50vw, 320px)); margin-right:0;
+  }
+  html[data-theme="night"] .hero-media img{
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 7%, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 7%, #000 80%, transparent 100%);
+    mask-composite: intersect;
+  }
+  /* keep hero copy crisp over the moving ribbons */
+  .hero-copy{ position:relative; }
+  .hero-copy::before{
+    content:""; position:absolute; inset:-30px -40px; z-index:-1; pointer-events:none;
+    background: radial-gradient(closest-side, var(--scrim), transparent);
+  }
+  /* logo on the dark theme: flip dark lettering to light and drop any light background */
+  html[data-theme="night"] .brand-logo{ filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+
+  /* theme switch */
+  .nav-end{ display:flex; align-items:center; gap:14px; }
+  .theme-toggle{
+    width:38px; height:38px; flex:none; padding:0;
+    border-radius:999px; border:1px solid var(--ghost-line);
+    background:var(--surface); color:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .theme-toggle:hover{ border-color:var(--accent); color:var(--accent-soft); }
+  .theme-toggle svg{ width:18px; height:18px; display:block; }
+  .theme-toggle .i-sun{ display:none; }
+  html[data-theme="night"] .theme-toggle .i-sun{ display:block; }
+  html[data-theme="night"] .theme-toggle .i-moon{ display:none; }
+  /* ---- First Master offer page ---- */
+  .offer-hero{ padding-block:36px 8px; display:grid; gap:18px; position:relative; }
+  .offer-hero::before{ content:""; position:absolute; inset:-30px 0; z-index:-1; pointer-events:none; background:radial-gradient(closest-side, var(--scrim), transparent); }
+  .offer-hero h1{ font-size:clamp(2.3rem,6vw,3.6rem); line-height:1.04; }
+  .price-row{ display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+  .price-new{ font-family:"Fraunces",serif; font-weight:700; font-size:clamp(3rem,10vw,4.6rem); line-height:1; color:var(--accent); }
+  .price-old{ font-size:1.4rem; color:var(--faint); text-decoration:line-through; text-decoration-color:var(--accent); text-decoration-thickness:2px; }
+  .price-tag{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; letter-spacing:.12em; text-transform:uppercase; border:1px solid var(--accent); color:var(--accent-soft); border-radius:999px; padding:4px 12px; }
+  .offer-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:8px; }
+  @media (max-width:640px){ .offer-grid{ grid-template-columns:1fr; } }
+  .offer-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; }
+  .offer-card h3{ font-size:1.2rem; margin-bottom:10px; }
+  .offer-card .eyebrow{ margin-bottom:6px; }
+  .offer-card ul{ margin:0; padding-left:1.1em; color:var(--muted); display:grid; gap:6px; }
+  .offer-section{ padding-block:34px 4px; }
+  .offer-section > h2{ font-size:clamp(1.6rem,3.6vw,2.2rem); margin-bottom:14px; }
+  .steps-list{ counter-reset:s; display:grid; gap:10px; margin:0; padding:0; list-style:none; }
+  .steps-list li{ counter-increment:s; display:flex; gap:14px; align-items:flex-start; color:var(--muted); }
+  .steps-list li::before{ content:counter(s); flex:none; width:30px; height:30px; border-radius:50%; background:var(--accent); color:var(--on-accent); font-weight:600; display:grid; place-items:center; font-size:.9rem; }
+  .steps-list b{ color:var(--ink); font-weight:600; }
+  .reg-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow:0 20px 50px -30px var(--shadow); }
+  .reg-form{ display:grid; gap:16px; }
+  .reg-form .req{ color:var(--accent); }
+  .check{ display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:.92rem; }
+  .check input{ margin-top:4px; accent-color:var(--accent); width:18px; height:18px; flex:none; }
+  .reg-submit{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 22px; border-radius:999px; border:none; cursor:pointer; background:var(--accent); color:var(--on-accent); font:600 1rem "Work Sans",sans-serif; }
+  .reg-submit[disabled]{ opacity:.6; cursor:progress; }
+  .reg-error{ color:var(--error); font-size:.9rem; min-height:1.2em; }
+  .reg-privacy{ color:var(--faint); font-size:.8rem; }
+  .reg-done{ text-align:center; display:grid; gap:12px; padding:10px 0; }
+  .reg-done h3{ font-size:1.5rem; }
+  .closed-note{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; }
+
+</style>
+<canvas id="wtBackdrop" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="brand" href="/">
+    <img src="/logo-white.png" alt="Wavetrap Productions" class="brand-logo">
+  </a>
+  <nav class="navlinks">
+    <a href="/#services">Services</a>
+    <a href="/#room">The Room</a>
+    <a href="/#equipment">Equipment</a>
+    <a href="/#artists">Artists</a>
+    <a href="/#reviews">Reviews</a>
+    <a href="/#book">Contact</a>
+  </nav>
+  <div class="nav-end">
+    <a class="navphone" href="tel:+919876184969">+91 98761 84969</a>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to Purple Night">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="offer-hero">
+    <div class="eyebrow">Introductory offer · One track per artist</div>
+    <h1>Your first master.</h1>
+    <div class="price-row">
+      <span class="price-new">₹1,499</span>
+      <span class="price-old">₹5,000</span>
+      <span class="price-tag">70% off</span>
+    </div>
+    <p class="sub">Analog mastering on cutting-edge hardware. Loud, warm and release-ready on every platform. Limited slots.</p>
+    <div class="cta-row"><a class="btn btn-primary" href="#register">Register your track</a><a class="btn btn-ghost" href="#specs">See the specs</a></div>
+  </section>
+
+  <section class="offer-section">
+    <h2>What you get</h2>
+    <div class="offer-grid">
+      <div class="offer-card"><div class="eyebrow">Included</div><ul><li>One track up to 3 minutes, mastered on analog hardware</li><li>One revision</li><li>48 kHz / 24-bit WAV plus a streaming MP3</li><li>Ready for Spotify, YouTube, Instagram and every other platform</li></ul></div>
+      <div class="offer-card"><div class="eyebrow">How it works</div><ol class="steps-list"><li><span><b>Register below</b> and paste a link to your mix.</span></li><li><span><b>We check your file</b> within 24 hours and message you on WhatsApp.</span></li><li><span><b>Pay ₹1,499</b> by UPI once your file is approved.</span></li><li><span><b>Get your master</b> back, release-ready.</span></li></ol></div>
+    </div>
+  </section>
+
+  <section class="offer-section" id="specs">
+    <h2>Before you send</h2>
+    <div class="offer-grid">
+      <div class="offer-card"><div class="eyebrow">Just starting out</div><h3>Keep it simple</h3><ul><li>Song up to 3 minutes</li><li>Export as WAV, not MP3 or WhatsApp audio</li><li>Nothing on the master channel: no limiter or "loudness" plugin</li><li>The meter never hits red; loudest part around -6</li><li>Name it Artist - Song - Mix v1.wav</li></ul><p class="field-hint" style="margin-top:10px">Not sure? Send it anyway. We check every file and tell you in plain words.</p></div>
+      <div class="offer-card"><div class="eyebrow">For producers</div><h3>Tech specs</h3><ul><li>3:00 max for this offer (longer at the regular rate)</li><li>Stereo WAV or AIFF, 48 kHz / 24-bit or native rate; 32-bit float welcome</li><li>True peaks between -6 and -3 dBFS</li><li>No limiter, clipper or maximizer on the master bus</li><li>No normalising, no dither on float files, no fades (or tell us)</li><li>1-2 s of silence head and tail; add a reference track</li></ul></div>
+    </div>
+  </section>
+
+  <section class="offer-section" id="register">
+    <h2>Register your track</h2>
+    <div class="reg-card">
+      <form class="reg-form" id="regForm" novalidate>
+        <div class="field-row">
+          <div class="field"><label for="rgName">Your name <span class="req">*</span></label><input id="rgName" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="rgArtist">Artist / project name <span class="req">*</span></label><input id="rgArtist" name="artist" required></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="rgInsta">Instagram handle <span class="req">*</span></label><input id="rgInsta" name="instagram" required placeholder="@yourname" autocapitalize="off"></div>
+          <div class="field"><label for="rgPhone">WhatsApp number <span class="req">*</span></label><input id="rgPhone" name="whatsapp" required inputmode="tel" placeholder="+91 98xxx xxxxx" autocomplete="tel"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="rgEmail">Email <span class="req">*</span></label><input id="rgEmail" name="email" type="email" required autocomplete="email"></div>
+          <div class="field"><label for="rgCity">City <span class="req">*</span></label><input id="rgCity" name="city" required autocomplete="address-level2"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="rgRole">I am a <span class="req">*</span></label><select id="rgRole" name="role" required><option value="" disabled selected>Choose one</option><option>Artist / singer</option><option>Producer</option><option>Mix engineer</option><option>Label / manager</option></select></div>
+          <div class="field"><label for="rgGenre">Genre <span class="req">*</span></label><select id="rgGenre" name="genre" required><option value="" disabled selected>Choose one</option><option>Punjabi pop</option><option>Hip-hop / rap</option><option>Devotional / Sufi</option><option>Folk</option><option>EDM / electronic</option><option>Bollywood / film</option><option>Other</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required></div>
+          <div class="field"><label for="rgLen">Track length (m:ss) <span class="req">*</span></label><input id="rgLen" name="length" required placeholder="2:58" inputmode="numeric"></div>
+        </div>
+        <div class="field"><label for="rgMix">Link to your mix (Google Drive, WeTransfer, Dropbox) <span class="req">*</span></label><input id="rgMix" name="mix_link" type="url" required placeholder="https://"><span class="field-hint">Set the link so anyone with it can download.</span></div>
+        <div class="field"><label for="rgRef">Reference track link</label><input id="rgRef" name="reference" type="url" placeholder="YouTube or Spotify link of a song you like the sound of"></div>
+        <div class="field-row">
+          <div class="field"><label for="rgRelease">Planned release date</label><input id="rgRelease" name="release_date" type="date"></div>
+          <div class="field"><label for="rgHeard">How did you hear about us?</label><select id="rgHeard" name="heard"><option value="" selected>Choose one</option><option>Instagram post / Reel</option><option>Instagram ad</option><option>A friend or artist</option><option>Google</option><option>Other</option></select></div>
+        </div>
+        <div class="field"><label for="rgNotes">Notes for the engineer</label><textarea id="rgNotes" name="notes" placeholder="Loudness wishes, platform, anything we should know"></textarea></div>
+        <label class="check"><input type="checkbox" id="rgRules" name="rules" required><span>I've read the specs, and this is my first Wavetrap intro track. One intro track per artist, project or label. <span class="req">*</span></span></label>
+        <label class="check"><input type="checkbox" id="rgConsent" name="consent"><span>Wavetrap may message me on WhatsApp or email about future offers. (Optional. Reply STOP any time.)</span></label>
+        <input type="text" name="website" id="rgHp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <div class="reg-error" id="rgError" role="alert"></div>
+        <button type="submit" class="reg-submit" id="rgSubmit">Register my track</button>
+        <p class="reg-privacy">We use your details only to deliver your master and, if you tick the box, to send Wavetrap offers. Your details stay with Wavetrap and are never shared. To have them deleted, message us on WhatsApp.</p>
+      </form>
+      <div class="reg-done" id="regDone" hidden>
+        <h3>You're registered.</h3>
+        <p class="sub" style="margin-inline:auto">We'll check your file within 24 hours and message you on WhatsApp with the next step. WhatsApp should open now so you can send us a quick hello.</p>
+        <div><a class="btn btn-primary" id="rgWa" href="#" target="_blank" rel="noopener">Open WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <div class="mono" style="letter-spacing:0.04em;">Wavetrap Productions™</div>
+    <div>706 New Lajpat Nagar, Ludhiana, Punjab 141001</div>
+  </div>
+  <div class="social">
+    <a href="https://www.instagram.com/wavetrapproductions" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/Wavetrap/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.youtube.com/channel/UC1q0PoZXIYHIhLkEl8MJ68w" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Paste the Google Apps Script web app URL here after deploying it */
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwvTOK7cVzmPZiPVZSzHCNwZbXaYozV5SvozaNAEhZ9CN73yIl2seLIC7d7TbmBBhZMWA/exec';
+  var STUDIO_WHATSAPP = '919876184969';
+  var form=document.getElementById('regForm'), err=document.getElementById('rgError'), btn=document.getElementById('rgSubmit');
+  function val(id){ return (document.getElementById(id).value||'').trim(); }
+  function secs(s){ var m=/^(\d{1,2})[:.](\d{2})$/.exec(s); return m? (+m[1])*60+(+m[2]) : NaN; }
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault(); err.textContent='';
+    if(val('rgHp')) return;
+    var need=['rgName','rgArtist','rgInsta','rgPhone','rgEmail','rgCity','rgRole','rgGenre','rgTitle','rgLen','rgMix'];
+    for(var i=0;i<need.length;i++){ if(!val(need[i])){ err.textContent='Please fill in every field marked *.'; document.getElementById(need[i]).focus(); return; } }
+    if(!/^\S+@\S+\.\S+$/.test(val('rgEmail'))){ err.textContent='Please check your email address.'; return; }
+    if(val('rgPhone').replace(/\D/g,'').length<10){ err.textContent='Please check your WhatsApp number.'; return; }
+    var t=secs(val('rgLen'));
+    if(isNaN(t)){ err.textContent='Write the length like 2:58.'; return; }
+    if(t>180){ err.textContent='This offer is for tracks up to 3:00. Longer tracks are at our regular rate; message us on WhatsApp.'; return; }
+    if(!/^https?:\/\//i.test(val('rgMix'))){ err.textContent='Please paste a full link to your mix, starting with https://'; return; }
+    if(!document.getElementById('rgRules').checked){ err.textContent='Please tick the box to confirm the specs and the one-track rule.'; return; }
+    var data=new URLSearchParams(new FormData(form));
+    data.set('consent', document.getElementById('rgConsent').checked ? 'yes' : 'no');
+    data.set('rules', 'yes'); data.delete('website');
+    data.set('page', location.href);
+    btn.disabled=true; btn.textContent='Sending…';
+    var msg='Hi Wavetrap, I just registered for the First Master offer.\n'+
+      'Name: '+val('rgName')+' ('+val('rgArtist')+')\n'+
+      'Instagram: '+val('rgInsta')+'\n'+
+      'Track: '+val('rgTitle')+' ('+val('rgLen')+')\n'+
+      'Mix: '+val('rgMix');
+    var wa='https://wa.me/'+STUDIO_WHATSAPP+'?text='+encodeURIComponent(msg);
+    function done(){
+      form.hidden=true; var d=document.getElementById('regDone'); d.hidden=false;
+      document.getElementById('rgWa').href=wa; d.scrollIntoView({behavior:'smooth',block:'center'});
+      window.open(wa,'_blank');
+    }
+    fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:data}).then(done,function(){
+      btn.disabled=false; btn.textContent='Register my track';
+      err.textContent='Could not send just now. Check your connection and try again, or message us on WhatsApp.';
+    });
+  });
+})();
+</script>
+
+<script>
+/* Wavetrap backdrop: light ribbons from the logo tag, with a sine-to-square "trap" every 12 s.
+   Themes: Daylight (copper on cream) and Purple Night (logo palette). */
+(function(){
+  var root=document.documentElement;
+  var cvs=document.getElementById('wtBackdrop');
+  var toggle=document.getElementById('themeToggle');
+  var meta=document.querySelector('meta[name="theme-color"]');
+  var ctx=cvs&&cvs.getContext?cvs.getContext('2d'):null;
+
+  var small=window.matchMedia('(max-width: 700px)');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var darkPref=window.matchMedia('(prefers-color-scheme: dark)');
+
+  var DEF={night:0.6, day:1};          // intensities approved by Alam
+  var META={night:'#0d0620', day:'#faf6ef'};
+  var mode=root.getAttribute('data-theme')==='night'?'night':'day';
+  var I=DEF[mode];
+
+  var PAL={
+    night:{bg0:'#06021a',bg1:'#1f0d44',bg2:'74,29,120',glow:'255,64,146',mid:'255,140,200',core:'255,255,255',ember:'255,96,150',bokeh:'150,128,255',comp:'lighter'},
+    day:{bg0:'#faf6ef',bg1:'#f5ebdd',bg2:'236,206,170',glow:'193,101,31',mid:'193,101,31',core:'154,78,23',ember:'193,101,31',bokeh:'193,101,31',comp:'source-over'}
+  };
+  var RIB=[
+    {y:.64,amp:.11,k:1.5,speed:.20,phase:0,  n:4,gap:8,tilt:-.12},
+    {y:.36,amp:.07,k:2.2,speed:-.13,phase:2.1,n:3,gap:6,tilt:.08},
+    {y:.84,amp:.05,k:3.0,speed:.27,phase:4.2,n:3,gap:5,tilt:0}
+  ];
+  var CYCLE=12, W=0, H=0, DPR=1, t=4, last=0, embers=[], bokeh=[];
+
+  function rand(a,b){return a+Math.random()*(b-a);}
+  function smooth(a,b,x){x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);}
+
+  function build(){
+    var ne=small.matches?36:80; embers=[];
+    for(var i=0;i<ne;i++)embers.push({x:rand(0,W),y:rand(0,H),vy:rand(-22,-7),vx:rand(-4,4),r:rand(.6,1.8),ph:rand(0,6.3)});
+    var nb=small.matches?5:9; bokeh=[];
+    for(var j=0;j<nb;j++)bokeh.push({x:rand(0,W),y:rand(0,H),r:rand(30,120),vx:rand(-5,5),vy:rand(-3,3),a:rand(.4,1)});
+  }
+  function resize(){
+    if(!ctx)return;
+    DPR=Math.min(window.devicePixelRatio||1,small.matches?1.5:2);
+    W=window.innerWidth;H=window.innerHeight;
+    cvs.width=Math.round(W*DPR);cvs.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    build();
+  }
+  function trapAmount(tt){var p=(tt%CYCLE)/CYCLE;return smooth(.55,.64,p)*(1-smooth(.76,.88,p));}
+  function flash(tt){var p=(tt%CYCLE)/CYCLE;return smooth(.53,.59,p)*(1-smooth(.59,.7,p));}
+
+  function waveY(r,ri,s,u,tt,M,trapU){
+    var th=u*r.k*Math.PI*2+r.phase+tt*r.speed+s*.13;
+    var w=Math.sin(th);
+    var m=M*Math.exp(-Math.pow((u-trapU)/.17,2));
+    var sq=Math.tanh(6*w)/Math.tanh(6);
+    var v=w+(sq-w)*m;
+    var base=H*(r.y+r.tilt*(u-.5))+H*.018*Math.sin(tt*.07+ri*1.7);
+    return base+v*r.amp*H*(1-s*.06)+(s-(r.n-1)/2)*r.gap;
+  }
+
+  function draw(tt){
+    if(!ctx||!W)return;
+    var P=PAL[mode], night=mode==='night';
+    var trapU=small.matches?.55:.7, M=trapAmount(tt), F=flash(tt);
+
+    ctx.globalCompositeOperation='source-over';
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,P.bg0);g.addColorStop(1,P.bg1);
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    var rg=ctx.createRadialGradient(W*.72,H*.42,0,W*.72,H*.42,Math.max(W,H)*.7);
+    rg.addColorStop(0,'rgba('+P.bg2+','+(night?.55:.5)*I+')');rg.addColorStop(1,'rgba('+P.bg2+',0)');
+    ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+
+    ctx.globalCompositeOperation=P.comp;
+    for(var b=0;b<bokeh.length;b++){
+      var o=bokeh[b], a=(night?.07:.05)*I*o.a;
+      var bg=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+      bg.addColorStop(0,'rgba('+P.bokeh+','+a+')');bg.addColorStop(1,'rgba('+P.bokeh+',0)');
+      ctx.fillStyle=bg;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,6.283);ctx.fill();
+    }
+
+    var step=small.matches?10:6;
+    for(var ri=0;ri<RIB.length;ri++){
+      var r=RIB[ri];
+      for(var s=0;s<r.n;s++){
+        ctx.beginPath();
+        for(var x=-20;x<=W+20;x+=step){
+          var y=waveY(r,ri,s,x/W,tt,M,trapU);
+          if(x===-20)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        }
+        if(night){
+          ctx.lineWidth=9;ctx.strokeStyle='rgba('+P.glow+','+(.05*I)+')';ctx.stroke();
+          ctx.lineWidth=3.2;ctx.strokeStyle='rgba('+P.mid+','+(.14*I)+')';ctx.stroke();
+          ctx.lineWidth=1.1;ctx.strokeStyle='rgba('+P.core+','+(.42*I)+')';ctx.stroke();
+        }else{
+          ctx.lineWidth=6;ctx.strokeStyle='rgba('+P.glow+','+(.045*I)+')';ctx.stroke();
+          ctx.lineWidth=1.1;ctx.strokeStyle='rgba('+P.core+','+(.32*I)+')';ctx.stroke();
+        }
+      }
+      var hu=((tt*.045+ri*.37)%1.3)-.15, hx=hu*W, hy=waveY(r,ri,0,hu,tt,M,trapU), hr=night?26:18;
+      var hg=ctx.createRadialGradient(hx,hy,0,hx,hy,hr);
+      hg.addColorStop(0,'rgba('+P.core+','+(night?.85:.35)*I+')');
+      hg.addColorStop(.25,'rgba('+P.glow+','+(night?.35:.15)*I+')');
+      hg.addColorStop(1,'rgba('+P.glow+',0)');
+      ctx.fillStyle=hg;ctx.beginPath();ctx.arc(hx,hy,hr,0,6.283);ctx.fill();
+    }
+
+    if(F>0.001){
+      var cx=W*trapU, cy=waveY(RIB[0],0,0,trapU,tt,M,trapU), fr=Math.max(W,H)*.35;
+      var fg=ctx.createRadialGradient(cx,cy,0,cx,cy,fr);
+      fg.addColorStop(0,'rgba('+P.core+','+(night?.5:.18)*F*I+')');
+      fg.addColorStop(.2,'rgba('+P.glow+','+(night?.18:.08)*F*I+')');
+      fg.addColorStop(1,'rgba('+P.glow+',0)');
+      ctx.fillStyle=fg;ctx.fillRect(0,0,W,H);
+      if(night){
+        ctx.save();ctx.translate(cx,cy);ctx.rotate(tt*.05);
+        for(var k=0;k<16;k++){
+          ctx.rotate(Math.PI*2/16);
+          ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(fr*1.6,-14);ctx.lineTo(fr*1.6,14);ctx.closePath();
+          ctx.fillStyle='rgba(220,200,255,'+(.035*F*I)+')';ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    for(var e=0;e<embers.length;e++){
+      var p=embers[e], fl=.5+.5*Math.sin(tt*3+p.ph);
+      ctx.fillStyle='rgba('+P.ember+','+((night?.55:.35)*I*fl)+')';
+      ctx.fillRect(p.x,p.y,p.r,p.r*2.2);
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+
+  function advance(dt){
+    t+=dt;
+    for(var e=0;e<embers.length;e++){
+      var p=embers[e];p.y+=p.vy*dt;p.x+=p.vx*dt;
+      if(p.y<-10){p.y=H+10;p.x=rand(0,W);}
+    }
+    for(var b=0;b<bokeh.length;b++){
+      var o=bokeh[b];o.x+=o.vx*dt;o.y+=o.vy*dt;
+      if(o.x<-o.r)o.x=W+o.r;if(o.x>W+o.r)o.x=-o.r;
+      if(o.y<-o.r)o.y=H+o.r;if(o.y>H+o.r)o.y=-o.r;
+    }
+  }
+
+  function frame(now){
+    requestAnimationFrame(frame);
+    if(reduce.matches)return;               // still frame for reduced-motion visitors
+    if(!last)last=now;
+    var dt=(now-last)/1000;
+    if(small.matches&&dt<1/31)return;       // ~30 fps on phones to save battery
+    last=now;
+    advance(Math.min(dt,.1));
+    draw(t);
+  }
+
+  function applyTheme(next,save){
+    mode=next; I=DEF[mode];
+    root.setAttribute('data-theme',mode);
+    if(meta)meta.setAttribute('content',META[mode]);
+    if(toggle)toggle.setAttribute('aria-label',mode==='night'?'Switch to Daylight':'Switch to Purple Night');
+    if(save){try{localStorage.setItem('wt-theme',mode);}catch(e){}}
+    draw(t);
+  }
+  if(toggle)toggle.addEventListener('click',function(){applyTheme(mode==='night'?'day':'night',true);});
+  function onSystemTheme(){
+    var saved=null;try{saved=localStorage.getItem('wt-theme');}catch(e){}
+    if(saved!=='day'&&saved!=='night')applyTheme(darkPref.matches?'night':'day',false);
+  }
+  if(darkPref.addEventListener)darkPref.addEventListener('change',onSystemTheme);
+  else if(darkPref.addListener)darkPref.addListener(onSystemTheme);
+  if(reduce.addEventListener)reduce.addEventListener('change',function(){last=0;draw(t);});
+
+  window.addEventListener('resize',function(){resize();draw(t);});
+  resize();
+  applyTheme(mode,false);
+  if(ctx)requestAnimationFrame(frame);
+})();
+
+</script>
+
+</body></html>
