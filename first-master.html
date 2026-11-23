@@ -1,4 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.reg-form .opt{font-weight:400;opacity:.7;text-transform:none;letter-spacing:0}
+</style></head><body>
 <title>First Master offer · Wavetrap Productions</title>
 <meta name="description" content="Your first track mastered on cutting-edge analog hardware at an introductory price. One track per artist.">
 <meta name="theme-color" content="#faf6ef">
@@ -601,7 +602,7 @@
   <section class="offer-section">
     <h2>What you get</h2>
     <div class="offer-grid">
-      <div class="offer-card"><div class="eyebrow">Included</div><ul><li>One track up to 3 minutes, mastered on analog hardware</li><li>One revision</li><li>48 kHz / 24-bit WAV plus a streaming MP3</li><li>Ready for Spotify, YouTube, Instagram and every other platform</li></ul></div>
+      <div class="offer-card"><div class="eyebrow">Included</div><ul><li>One track up to 3 minutes, mastered on analog hardware</li><li>One revision (extra revisions at the regular price)</li><li>48 kHz / 24-bit WAV plus a streaming MP3</li><li>Ready for Spotify, YouTube, Instagram and every other platform</li></ul></div>
       <div class="offer-card"><div class="eyebrow">How it works</div><ol class="steps-list"><li><span><b>Register below</b> and paste a link to your mix.</span></li><li><span><b>We check your file</b> within 24 hours and message you on WhatsApp.</span></li><li><span><b>Pay ₹1,499</b> by UPI once your file is approved.</span></li><li><span><b>Get your master</b> back, release-ready.</span></li></ol></div>
     </div>
   </section>
@@ -618,6 +619,9 @@
     <h2>Register your track</h2>
     <div class="reg-card">
       <form class="reg-form" id="regForm" novalidate>
+        <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required></div>
+        <div class="field"><label for="rgMix">Link to your mix (Google Drive, WeTransfer, Dropbox) <span class="req">*</span></label><input id="rgMix" name="mix_link" type="url" required placeholder="https://"><span class="field-hint">Set the link so anyone with it can download.</span></div>
+        <div class="field"><label for="rgRef">Reference track link <span class="opt">(recommended)</span></label><input id="rgRef" name="reference" type="url" placeholder="YouTube or Spotify link of a song you like the sound of"><span class="field-hint">A reference shows us the sound you're after, so your master lands closer to it with fewer revisions.</span></div>
         <div class="field-row">
           <div class="field"><label for="rgName">Your name <span class="req">*</span></label><input id="rgName" name="name" required autocomplete="name"></div>
           <div class="field"><label for="rgArtist">Artist / project name <span class="req">*</span></label><input id="rgArtist" name="artist" required></div>
@@ -626,23 +630,19 @@
           <div class="field"><label for="rgInsta">Instagram handle <span class="req">*</span></label><input id="rgInsta" name="instagram" required placeholder="@yourname" autocapitalize="off"></div>
           <div class="field"><label for="rgPhone">WhatsApp number <span class="req">*</span></label><input id="rgPhone" name="whatsapp" required inputmode="tel" placeholder="+91 98xxx xxxxx" autocomplete="tel"></div>
         </div>
+        <div class="field"><label for="rgEmail">Email <span class="req">*</span></label><input id="rgEmail" name="email" type="email" required autocomplete="email"></div>
+        <p class="field-hint" style="margin:6px 0 0">The rest is optional, but it helps us get to know you.</p>
         <div class="field-row">
-          <div class="field"><label for="rgEmail">Email <span class="req">*</span></label><input id="rgEmail" name="email" type="email" required autocomplete="email"></div>
-          <div class="field"><label for="rgCity">City <span class="req">*</span></label><input id="rgCity" name="city" required autocomplete="address-level2"></div>
+          <div class="field"><label for="rgCity">City</label><input id="rgCity" name="city" autocomplete="address-level2"></div>
+          <div class="field"><label for="rgRole">I am a</label><select id="rgRole" name="role"><option value="" selected>Choose one</option><option>Artist / singer</option><option>Producer</option><option>Mix engineer</option><option>Label / manager</option></select></div>
         </div>
         <div class="field-row">
-          <div class="field"><label for="rgRole">I am a <span class="req">*</span></label><select id="rgRole" name="role" required><option value="" disabled selected>Choose one</option><option>Artist / singer</option><option>Producer</option><option>Mix engineer</option><option>Label / manager</option></select></div>
-          <div class="field"><label for="rgGenre">Genre <span class="req">*</span></label><select id="rgGenre" name="genre" required><option value="" disabled selected>Choose one</option><option>Punjabi pop</option><option>Hip-hop / rap</option><option>Devotional / Sufi</option><option>Folk</option><option>EDM / electronic</option><option>Bollywood / film</option><option>Other</option></select></div>
-        </div>
-        <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required><span class="field-hint">Offer covers songs up to 3:00. If your song is longer, it's charged at the regular price.</span></div>
-        <div class="field"><label for="rgMix">Link to your mix (Google Drive, WeTransfer, Dropbox) <span class="req">*</span></label><input id="rgMix" name="mix_link" type="url" required placeholder="https://"><span class="field-hint">Set the link so anyone with it can download.</span></div>
-        <div class="field"><label for="rgRef">Reference track link</label><input id="rgRef" name="reference" type="url" placeholder="YouTube or Spotify link of a song you like the sound of"></div>
-        <div class="field-row">
-          <div class="field"><label for="rgRelease">Planned release date</label><input id="rgRelease" name="release_date" type="date"></div>
+          <div class="field"><label for="rgGenre">Genre</label><select id="rgGenre" name="genre"><option value="" selected>Choose one</option><option>Punjabi pop</option><option>Hip-hop / rap</option><option>Devotional / Sufi</option><option>Folk</option><option>EDM / electronic</option><option>Bollywood / film</option><option>Other</option></select></div>
           <div class="field"><label for="rgHeard">How did you hear about us?</label><select id="rgHeard" name="heard"><option value="" selected>Choose one</option><option>Instagram post / Reel</option><option>Instagram ad</option><option>A friend or artist</option><option>Google</option><option>Other</option></select></div>
         </div>
+        <div class="field"><label for="rgRelease">Planned release date</label><input id="rgRelease" name="release_date" type="date"></div>
         <div class="field"><label for="rgNotes">Notes for the engineer</label><textarea id="rgNotes" name="notes" placeholder="Loudness wishes, platform, anything we should know"></textarea></div>
-        <label class="check"><input type="checkbox" id="rgRules" name="rules" required><span>I've read the specs (song up to 3:00, longer songs at the regular price), and this is my first Wavetrap intro track. One intro track per artist, project or label. <span class="req">*</span></span></label>
+        <label class="check"><input type="checkbox" id="rgRules" name="rules" required><span>My song is 3:00 or shorter (longer songs are charged at the regular price). One revision is included; extra revisions are at the regular price. This is my first Wavetrap intro track (one per artist, project or label). <span class="req">*</span></span></label>
         <label class="check"><input type="checkbox" id="rgConsent" name="consent"><span>Wavetrap may message me on WhatsApp or email about future offers. (Optional. Reply STOP any time.)</span></label>
         <input type="text" name="website" id="rgHp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <div class="reg-error" id="rgError" role="alert"></div>
@@ -680,7 +680,7 @@
   form.addEventListener('submit', function(ev){
     ev.preventDefault(); err.textContent='';
     if(val('rgHp')) return;
-    var need=['rgName','rgArtist','rgInsta','rgPhone','rgEmail','rgCity','rgRole','rgGenre','rgTitle','rgMix'];
+    var need=['rgTitle','rgMix','rgName','rgArtist','rgInsta','rgPhone','rgEmail'];
     for(var i=0;i<need.length;i++){ if(!val(need[i])){ err.textContent='Please fill in every field marked *.'; document.getElementById(need[i]).focus(); return; } }
     if(!/^\S+@\S+\.\S+$/.test(val('rgEmail'))){ err.textContent='Please check your email address.'; return; }
     if(val('rgPhone').replace(/\D/g,'').length<10){ err.textContent='Please check your WhatsApp number.'; return; }
@@ -690,6 +690,8 @@
     data.set('consent', document.getElementById('rgConsent').checked ? 'yes' : 'no');
     data.set('rules', 'yes'); data.delete('website');
     data.set('page', location.href);
+    var src=new URLSearchParams(location.search).get('from');
+    if(src && !val('rgHeard')) data.set('heard', 'Auto: '+src.slice(0,40));
     btn.disabled=true; btn.textContent='Sending…';
     var msg='Hi Wavetrap, I just registered for the First Master offer.\n'+
       'Name: '+val('rgName')+' ('+val('rgArtist')+')\n'+
