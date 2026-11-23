@@ -634,10 +634,7 @@
           <div class="field"><label for="rgRole">I am a <span class="req">*</span></label><select id="rgRole" name="role" required><option value="" disabled selected>Choose one</option><option>Artist / singer</option><option>Producer</option><option>Mix engineer</option><option>Label / manager</option></select></div>
           <div class="field"><label for="rgGenre">Genre <span class="req">*</span></label><select id="rgGenre" name="genre" required><option value="" disabled selected>Choose one</option><option>Punjabi pop</option><option>Hip-hop / rap</option><option>Devotional / Sufi</option><option>Folk</option><option>EDM / electronic</option><option>Bollywood / film</option><option>Other</option></select></div>
         </div>
-        <div class="field-row">
-          <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required></div>
-          <div class="field"><label for="rgLen">Track length (m:ss) <span class="req">*</span></label><input id="rgLen" name="length" required placeholder="2:58 (or 258)" inputmode="decimal"></div>
-        </div>
+        <div class="field"><label for="rgTitle">Track title <span class="req">*</span></label><input id="rgTitle" name="track" required><span class="field-hint">Offer covers songs up to 3:00. If your song is longer, it's charged at the regular price.</span></div>
         <div class="field"><label for="rgMix">Link to your mix (Google Drive, WeTransfer, Dropbox) <span class="req">*</span></label><input id="rgMix" name="mix_link" type="url" required placeholder="https://"><span class="field-hint">Set the link so anyone with it can download.</span></div>
         <div class="field"><label for="rgRef">Reference track link</label><input id="rgRef" name="reference" type="url" placeholder="YouTube or Spotify link of a song you like the sound of"></div>
         <div class="field-row">
@@ -645,7 +642,7 @@
           <div class="field"><label for="rgHeard">How did you hear about us?</label><select id="rgHeard" name="heard"><option value="" selected>Choose one</option><option>Instagram post / Reel</option><option>Instagram ad</option><option>A friend or artist</option><option>Google</option><option>Other</option></select></div>
         </div>
         <div class="field"><label for="rgNotes">Notes for the engineer</label><textarea id="rgNotes" name="notes" placeholder="Loudness wishes, platform, anything we should know"></textarea></div>
-        <label class="check"><input type="checkbox" id="rgRules" name="rules" required><span>I've read the specs, and this is my first Wavetrap intro track. One intro track per artist, project or label. <span class="req">*</span></span></label>
+        <label class="check"><input type="checkbox" id="rgRules" name="rules" required><span>I've read the specs (song up to 3:00, longer songs at the regular price), and this is my first Wavetrap intro track. One intro track per artist, project or label. <span class="req">*</span></span></label>
         <label class="check"><input type="checkbox" id="rgConsent" name="consent"><span>Wavetrap may message me on WhatsApp or email about future offers. (Optional. Reply STOP any time.)</span></label>
         <input type="text" name="website" id="rgHp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
         <div class="reg-error" id="rgError" role="alert"></div>
@@ -680,26 +677,16 @@
   var STUDIO_WHATSAPP = '919876184969';
   var form=document.getElementById('regForm'), err=document.getElementById('rgError'), btn=document.getElementById('rgSubmit');
   function val(id){ return (document.getElementById(id).value||'').trim(); }
-  function secs(s){
-    s=String(s).trim();
-    var m=/^(\d{1,2})\s*[:.,;'\- ]\s*(\d{1,2})$/.exec(s) || /^(\d{1,2})(\d{2})$/.exec(s.replace(/\s/g,''));
-    if(!m || +m[2]>59) return NaN; return (+m[1])*60+(+m[2]);
-  }
-  function mss(t){ return Math.floor(t/60)+':'+('0'+(t%60)).slice(-2); }
   form.addEventListener('submit', function(ev){
     ev.preventDefault(); err.textContent='';
     if(val('rgHp')) return;
-    var need=['rgName','rgArtist','rgInsta','rgPhone','rgEmail','rgCity','rgRole','rgGenre','rgTitle','rgLen','rgMix'];
+    var need=['rgName','rgArtist','rgInsta','rgPhone','rgEmail','rgCity','rgRole','rgGenre','rgTitle','rgMix'];
     for(var i=0;i<need.length;i++){ if(!val(need[i])){ err.textContent='Please fill in every field marked *.'; document.getElementById(need[i]).focus(); return; } }
     if(!/^\S+@\S+\.\S+$/.test(val('rgEmail'))){ err.textContent='Please check your email address.'; return; }
     if(val('rgPhone').replace(/\D/g,'').length<10){ err.textContent='Please check your WhatsApp number.'; return; }
-    var t=secs(val('rgLen'));
-    if(isNaN(t)){ err.textContent='Write the length like 2:58, 2.58 or 258.'; return; }
-    if(t>180){ err.textContent='This offer is for tracks up to 3:00. Longer tracks are at our regular rate; message us on WhatsApp.'; return; }
     if(!/^https?:\/\//i.test(val('rgMix'))){ err.textContent='Please paste a full link to your mix, starting with https://'; return; }
     if(!document.getElementById('rgRules').checked){ err.textContent='Please tick the box to confirm the specs and the one-track rule.'; return; }
     var data=new URLSearchParams(new FormData(form));
-    data.set('length', mss(t));
     data.set('consent', document.getElementById('rgConsent').checked ? 'yes' : 'no');
     data.set('rules', 'yes'); data.delete('website');
     data.set('page', location.href);
@@ -707,7 +694,7 @@
     var msg='Hi Wavetrap, I just registered for the First Master offer.\n'+
       'Name: '+val('rgName')+' ('+val('rgArtist')+')\n'+
       'Instagram: '+val('rgInsta')+'\n'+
-      'Track: '+val('rgTitle')+' ('+mss(t)+')\n'+
+      'Track: '+val('rgTitle')+'\n'+
       'Mix: '+val('rgMix');
     var wa='https://wa.me/'+STUDIO_WHATSAPP+'?text='+encodeURIComponent(msg);
     function done(){
